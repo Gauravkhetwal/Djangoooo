@@ -122,3 +122,90 @@ def home(request):
 ```
 
 ---
+
+__STEP3__
+
+
+---
+
+1. Created our database i.e., model  in models.py within our App Mobile
+
+```python
+
+from django.db import models
+
+# Create your models here.
+
+class Mobile(models.Model):
+  name=models.CharField(max_length=100)
+  cost=models.IntegerField(blank=True)
+
+
+  def __str__(self):
+    return self.name
+
+```
+
+
+2. Now add this file in admin within this folder
+
+```python
+from . models import Mobile
+admin.site.register(Mobile)
+```
+
+
+3. Now run the following command to create superuser
+
+```python
+
+python manage.py createsuperuser
+
+python manage.py makemigrations
+
+python manage.py migrate
+
+python manage.py runserver
+
+
+
+```
+
+
+4. Now login in the admin section and the data
+
+5. The final task is to create an object of this model named Mobile in our models.py. Add the following in views.py
+
+```python
+
+from django.shortcuts import render
+
+# Create your views here.
+
+from . models import Mobile
+
+
+def home(request):
+  obj=Mobile.objects.all()
+  return render(request,'home.html',{'obj':obj})
+
+```
+
+
+6. Eventually  , in our home.html add this.
+
+
+```html
+{% block content %}
+
+{% for mobile in obj %}
+
+<h1> {{mobile.name }} </h1> <br>  {{mobile.cost}}
+
+
+
+{% endfor %}
+{%endblock%}
+
+```
+---

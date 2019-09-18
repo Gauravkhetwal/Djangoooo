@@ -2,6 +2,9 @@ from django.shortcuts import render
 
 # Create your views here.
 
+from . models import Mobile
+
 
 def home(request):
-	return render(request,'home.html',{})
+	obj=Mobile.objects.all()
+	return render(request,'home.html',{'obj':obj})
